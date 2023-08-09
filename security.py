@@ -1,5 +1,5 @@
 import pandas as pd
-#import nltk
+import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.util import ngrams
