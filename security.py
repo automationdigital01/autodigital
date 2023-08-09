@@ -5,7 +5,7 @@ from nltk.corpus import stopwords
 from nltk.util import ngrams
 import string
 import streamlit as st
-
+import openpyxl
 
 
 
@@ -28,7 +28,10 @@ def main():
 #making dataframes.
 
 # Read the Excel sheet into a DataFrame
-    df = pd.read_excel('data/CatMainRisk.xlsx')
+    #df = pd.read_excel('data/CatMainRisk.xlsx')
+    wb_obj = openpyxl.load_workbook('data/CatMainRisk.xlsx')
+    db_main=wb_obj.active
+    st.dataframe(db_main)
 
 # Tokenize, remove stopwords, and specified characters
     filtered_tokens = remove_stopwords(text)
