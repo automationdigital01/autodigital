@@ -21,7 +21,7 @@ def read_csv(ctx, relative_url, pandas=False):
         data = StringIO(s)
         return data
       
-FILE_URL= ""https://technip.sharepoint.com/:x:/r/sites/SecurityNewsDataConsolidation/Shared%20Documents/General/Project-1%20Config/CatMainRisk.xlsx?d=w6ed3943ee0854d2cb0f8e76dfc8bcc65&csf=1&web=1&e=XUxlUY" 
+FILE_URL= "https://technip.sharepoint.com/:x:/r/sites/SecurityNewsDataConsolidation/Shared%20Documents/General/Project-1%20Config/CatMainRisk.xlsx?d=w6ed3943ee0854d2cb0f8e76dfc8bcc65&csf=1&web=1&e=XUxlUY" 
 df= pd.read_csv(read_csv(ctx=ctx, relative_url=FILE_URL, pandas=True), dtype=str, keep_default_na=False) # read master qrd db
 st.dataframe(df)
 #txt = st.text_area('enter text',)
