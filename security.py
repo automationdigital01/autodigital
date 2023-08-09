@@ -94,6 +94,7 @@ def main():
     #merged_df.to_excel('FinalMainCatSubCat.xlsx', index=False)
 
 if __name__ == "__main__":
+    download('words')
     nltk.download('punkt')       # Download the punkt tokenizer models (if not already downloaded)
     nltk.download('stopwords')   # Download the stopwords (if not already downloaded)
     main()
