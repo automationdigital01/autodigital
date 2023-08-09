@@ -5,8 +5,8 @@ from nltk.corpus import stopwords
 from nltk.util import ngrams
 import string
 import streamlit as st
-import openpyxl
-from st_aggrid import AgGrid
+
+
 
 
 
@@ -32,7 +32,7 @@ def main():
     #wb_obj = openpyxl.load_workbook('data/CatMainRisk.xlsx')
     #df=wb_obj.active
     st.dataframe(df)
-    AgGrid(df)
+    
 
 # Tokenize, remove stopwords, and specified characters
     filtered_tokens = remove_stopwords(text)
