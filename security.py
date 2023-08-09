@@ -28,7 +28,7 @@ def main():
 #making dataframes.
 
 # Read the Excel sheet into a DataFrame
-    df = pd.read_excel('CatMainRisk.xlsx')
+    df = pd.read_excel('data/CatMainRisk.xlsx')
 
 # Tokenize, remove stopwords, and specified characters
     filtered_tokens = remove_stopwords(text)
@@ -58,7 +58,7 @@ def main():
 
 
 # Read the Excel sheet into a DataFrame
-    df = pd.read_excel('CatSubRisk.xlsx')
+    df = pd.read_excel('data/CatSubRisk.xlsx')
 
 # Tokenize, remove stopwords, and specified characters
     filtered_tokens = remove_stopwords(text)
