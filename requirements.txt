@@ -1,3 +1,3 @@
 streamlit==0.88.0
 requests
-office365
+Office365-REST-Python-Client
