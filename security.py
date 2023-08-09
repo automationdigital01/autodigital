@@ -6,7 +6,7 @@ from nltk.util import ngrams
 import string
 import streamlit as st
 import openpyxl
-
+from st_aggrid import AgGrid
 
 
 
@@ -28,10 +28,11 @@ def main():
 #making dataframes.
 
 # Read the Excel sheet into a DataFrame
-    #df = pd.read_excel('data/CatMainRisk.xlsx')
-    wb_obj = openpyxl.load_workbook('data/CatMainRisk.xlsx')
-    db_main=wb_obj.active
-    st.dataframe(db_main)
+    df = pd.read_excel('data/CatMainRisk.xlsx')
+    #wb_obj = openpyxl.load_workbook('data/CatMainRisk.xlsx')
+    #df=wb_obj.active
+    st.dataframe(df)
+    AgGrid(df)
 
 # Tokenize, remove stopwords, and specified characters
     filtered_tokens = remove_stopwords(text)
@@ -47,7 +48,7 @@ def main():
     all_ngrams = [gram.lower() if isinstance(gram, str) else ' '.join(gram).lower() for gram in individual_tokens + bigrams + trigrams + four_grams + five_grams]
 
 # Find the matching keywords in the "Keywords" column
-    matching_keywords = df[df['Keywords'].apply(lambda x: any(ngram == x.lower() for ngram in all_ngrams))]
+    matching_keywords = df_main[df_main['Keywords'].apply(lambda x: any(ngram == x.lower() for ngram in all_ngrams))]
 
 # Sort by the number of matched tokens in descending order
     matching_keywords['Matched Tokens'] = matching_keywords['Keywords'].apply(lambda x: sum(1 for ngram in all_ngrams if ngram == x.lower()))
