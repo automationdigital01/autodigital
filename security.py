@@ -23,8 +23,8 @@ def main():
     text = st.text_area('enter text',)
     if st.button("Submit"):
         df = pd.read_excel('data/CatMainRisk.xlsx')
-        st.header("Main Risk Category")
-        st.dataframe(df)
+        #st.header("Main Risk Category")
+        #st.dataframe(df)
     
 # Tokenize, remove stopwords, and specified characters
         filtered_tokens = remove_stopwords(text)
