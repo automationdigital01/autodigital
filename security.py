@@ -48,7 +48,7 @@ def main():
     all_ngrams = [gram.lower() if isinstance(gram, str) else ' '.join(gram).lower() for gram in individual_tokens + bigrams + trigrams + four_grams + five_grams]
 
 # Find the matching keywords in the "Keywords" column
-    matching_keywords = df_main[df_main['Keywords'].apply(lambda x: any(ngram == x.lower() for ngram in all_ngrams))]
+    matching_keywords = df[df['Keywords'].apply(lambda x: any(ngram == x.lower() for ngram in all_ngrams))]
 
 # Sort by the number of matched tokens in descending order
     matching_keywords['Matched Tokens'] = matching_keywords['Keywords'].apply(lambda x: sum(1 for ngram in all_ngrams if ngram == x.lower()))
