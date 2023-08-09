@@ -19,9 +19,11 @@ def get_ngrams(tokens, n):
     return list(ngrams(tokens, n))
 
 def main():
+    st.title("Security App")
     text = st.text_area('enter text',)
     if st.button("Submit"):
-        df = pd.read_excel('data/CatMainRisk.xlsx') #
+        df = pd.read_excel('data/CatMainRisk.xlsx')
+        st.header("Main Risk Category")
         st.dataframe(df)
     
 # Tokenize, remove stopwords, and specified characters
@@ -46,6 +48,7 @@ def main():
 
 # Extract the corresponding "Main risk category" up to top 3 matches
         result_main_risk = matching_keywords[['Main risk categories', 'Keywords', 'Matched Tokens']].head(3)
+        st.header("Main Risk Category Matched Tokens")
 
         st.dataframe(result_main_risk)
 
@@ -76,6 +79,8 @@ def main():
 
 # Extract the corresponding "Main risk category" and "Sub-risk categories" up to top 3 matches
         result_main_sub_risk = matching_keywords[['Main risk categories', ' Sub-Risk categories', 'Keywords', 'Matched Tokens']].head(3)
+        st.header("Main Sub Risk")
+        st.dataframe(result_main_sub_risk)
 
         if result_main_risk.empty:
         # Update result_main_risk with data from result_main_sub_risk
@@ -83,7 +88,13 @@ def main():
 
     # Merge the data frames on the common column "Main risk categories"
         merged_df = pd.merge(result_main_risk,result_main_sub_risk,  on="Main risk categories")
+        st.header("Merged")
         st.dataframe(merged_df)
+        csv = merged_df.to_csv().encode('utf-8')
+        st.download_button(label="Download data as CSV",
+                           data=csv,
+                           file_name='merged_risk.csv',
+                           mime='text/csv',)
 
     #merged_df.to_excel('FinalMainCatSubCat.xlsx', index=False)
 
