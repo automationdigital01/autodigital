@@ -1,3 +1,4 @@
 streamlit==0.88.0
 requests
 Office365-REST-Python-Client
+nltk
