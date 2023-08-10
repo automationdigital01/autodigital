@@ -55,8 +55,8 @@ def threat_actor(text):
     result_Threat_risk = matching_keywords[['Threat actor', 'Keywords', 'Matched Tokens']].head(3)
     st.header("Threat Actor")
     st.dataframe(result_Threat_risk)
-    #csv = result_Threat_risk.to_csv().encode('utf-8')
-    #st.download_button(label="Download Threat Actor output",data=csv,file_name='merged_risk.csv',mime='text/csv',)
+    csv = result_Threat_risk.to_csv().encode('utf-8')
+    st.download_button(label="Download Threat Actor output",data=csv,file_name='threat_actor.csv',mime='text/csv',)
 
 def mainsubrisk(text):
         df = pd.read_excel('data/CatMainRisk.xlsx')
@@ -129,8 +129,8 @@ def mainsubrisk(text):
         merged_df = pd.merge(result_main_risk,result_main_sub_risk,  on="Main risk categories")
         st.header("Merged")
         st.dataframe(merged_df)
-        #csv = merged_df.to_csv().encode('utf-8')
-        #st.download_button(label="Download Main/Sub risk output",data=csv,file_name='merged_risk.csv',mime='text/csv',)
+        csv = merged_df.to_csv().encode('utf-8')
+        st.download_button(label="Download Main/Sub risk output",data=csv,file_name='merged_risk.csv',mime='text/csv',)
 
         
 
