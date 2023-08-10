@@ -129,11 +129,8 @@ def mainsubrisk(text):
         merged_df = pd.merge(result_main_risk,result_main_sub_risk,  on="Main risk categories")
         st.header("Merged")
         st.dataframe(merged_df)
-        csv = merged_df.to_csv().encode('utf-8')
-        st.download_button(label="Download Main/Sub risk output",
-                           data=csv,
-                           file_name='merged_risk.csv',
-                           mime='text/csv',)
+        #csv = merged_df.to_csv().encode('utf-8')
+        #st.download_button(label="Download Main/Sub risk output",data=csv,file_name='merged_risk.csv',mime='text/csv',)
 
         
 
@@ -152,6 +149,8 @@ def main():
         
         elif main_subrisk:
              mainsubrisk(text)
+        else:
+             st.write("Please select one option")     
 
 
     
