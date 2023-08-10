@@ -142,15 +142,16 @@ def main():
     text = st.text_area('enter text',)
     main_subrisk=st.checkbox("Main/Sub Risk")
     threatactor=st.checkbox("Threat Actor")
-    if st.button("Submit") and main_subrisk and threatactor:
-        main_subrisk(text)
-        threat_actor(text)
+    if st.button("Submit"):
+        if main_subrisk and threatactor:
+             main_subrisk(text)
+             threat_actor(text)
         
-    elif st.button("Submit") and threatactor:
-        threat_actor(text)
+        elif threatactor:
+             threat_actor(text)
         
-    elif st.button("Submit") and main_subrisk:
-        main_subrisk(text)
+        elif main_subrisk:
+             main_subrisk(text)
 
 
     
