@@ -24,7 +24,7 @@ def lemmatize_tokens(tokens):
     return [lemmatizer.lemmatize(token.lower(), pos='n') for token in tokens]
 
 def threat_actor(text):
-    dfThreat= pd.read_excel('data/CatMainRisk.xlsx')# Read the Excel sheet into a DataFrame
+    dfThreat= pd.read_excel('data/CatThreatActor.xlsx')# Read the Excel sheet into a DataFrame
 
     # Lemmatize the keywords in the 'Keywords' column of dfThreat
     dfThreat['Keywords'] = dfThreat['Keywords'].apply(lambda x: ' '.join(lemmatize_tokens(word_tokenize(x))))
