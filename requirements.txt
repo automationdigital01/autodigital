@@ -6,3 +6,4 @@ openpyxl
 spacy
 sumy
 geotext
+nltk
