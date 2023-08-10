@@ -58,7 +58,7 @@ def threat_actor(text):
     #csv = result_Threat_risk.to_csv().encode('utf-8')
     #st.download_button(label="Download Threat Actor output",data=csv,file_name='merged_risk.csv',mime='text/csv',)
 
-def main_subrisk(text):
+def mainsubrisk(text):
         df = pd.read_excel('data/CatMainRisk.xlsx')
         #st.header("Main Risk Category")
         #st.dataframe(df)
@@ -144,14 +144,14 @@ def main():
     threatactor=st.checkbox("Threat Actor")
     if st.button("Submit"):
         if main_subrisk and threatactor:
-             main_subrisk(text)
+             mainsubrisk(text)
              threat_actor(text)
         
         elif threatactor:
              threat_actor(text)
         
         elif main_subrisk:
-             main_subrisk(text)
+             mainsubrisk(text)
 
 
     
