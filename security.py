@@ -145,14 +145,20 @@ def main():
     if st.button("Submit") and main_subrisk and threatactor:
         main_subrisk(text)
         threat_actor(text)
-        break
+        
     elif st.button("Submit") and threatactor:
         threat_actor(text)
-        break
+        
     elif st.button("Submit") and main_subrisk:
         main_subrisk(text)
- 
-       
+
+
+    
+          
+    
+        
+    
+
 if __name__ == "__main__":
     nltk.download('punkt')       # Download the punkt tokenizer models (if not already downloaded)
     nltk.download('stopwords')   # Download the stopwords (if not already downloaded)
