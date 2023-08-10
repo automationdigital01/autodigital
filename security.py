@@ -53,7 +53,7 @@ def threat_actor(text):
     
     # Extract the corresponding "Main risk category" up to top 3 matches
     result_Threat_risk = matching_keywords[['Threat actor', 'Keywords', 'Matched Tokens']].head(3)
-    
+    st.header("Threat Actor")
     st.dataframe(result_Threat_risk)
     #csv = result_Threat_risk.to_csv().encode('utf-8')
     #st.download_button(label="Download Threat Actor output",data=csv,file_name='merged_risk.csv',mime='text/csv',)
