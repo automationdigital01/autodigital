@@ -87,7 +87,7 @@ def Get_SubjectCountry(text):
         # Check if the entity is a country
         if ent.label_ == "GPE" and ent.text not in cities:
             countries.add(ent.text)           
-     # Extract exception country names
+    # Extract exception country names
     country_exceptions = ['US','UK','USSR','Turkiye','UAE','USA','ENG']
     for country_name in country_exceptions:
         if country_name in text:
@@ -116,7 +116,15 @@ def main():
         columns=['Country', 'State', 'City', 'Summary', 'SubjectCountry'])
     data = [[countries_main, states_main, cities_main, summary, subject_countries]]
     dfOutput = pd.DataFrame(
-    data, columns=['Country', 'State', 'City', 'Summary', 'SubjectCountry'])
+        data, columns=['Country', 'State', 'City', 'Summary', 'SubjectCountry'])
+    st.dataframe(dfOutput)
+    csv = dfOutput.to_csv().encode('utf-8')
+    st.download_button(label="Download data as CSV",
+                        data=csv,
+                        file_name='country_securityanalysis.csv',
+                        mime='text/csv',)
 
-    dfOutput.to_excel("SecurityAnalysis.xlsx")
+    #dfOutput.to_excel("SecurityAnalysis.xlsx")
 
+if __name__ == "__main__":
+    main()
