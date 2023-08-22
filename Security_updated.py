@@ -63,10 +63,10 @@ def main():
     text = st.text_area('enter text',)
     if st.button("Submit"):
         # Read the Excel sheet into a DataFrame
-        dfMainRisk = pd.read_excel('CatMainRisk.xlsx')
+        dfMainRisk = pd.read_excel('data/CatMainRisk.xlsx')
 
         # Read the Excel sheet into a DataFrame
-        dfSubRisk = pd.read_excel('CatSubRisk.xlsx')
+        dfSubRisk = pd.read_excel('data/CatSubRisk.xlsx')
         
         main_matching_keywords =ngramprocessing(text, dfMainRisk)
         print(main_matching_keywords)
