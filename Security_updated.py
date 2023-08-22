@@ -136,7 +136,7 @@ def mainsubrisk(text):
                 'Matched Tokens_y': 'Unmatched'
                 })
 
-            merged_df=pd.DataFrame(new_row,ignore_index=True )
+            merged_df=pd.DataFrame(new_row )
             
             
     if(len(result_main_sub_risk)>0 or len(result_main_risk)>0):
@@ -152,7 +152,7 @@ def mainsubrisk(text):
             })
 
             # Append the new row to the DataFrame
-            merged_df=pd.DataFrame(new_row,ignore_index=True)
+            merged_df=pd.DataFrame(new_row)
     
     st.header("Merged")
     st.dataframe(merged_df)
