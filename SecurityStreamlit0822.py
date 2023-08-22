@@ -5,6 +5,7 @@ from nltk.corpus import stopwords
 from nltk.util import ngrams
 from nltk.stem import WordNetLemmatizer
 import string
+import streamlit as st
 
 nltk.download('punkt')       # Download the punkt tokenizer models (if not already downloaded)
 nltk.download('stopwords')   # Download the stopwords (if not already downloaded)
