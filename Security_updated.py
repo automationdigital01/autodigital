@@ -120,14 +120,14 @@ def mainsubrisk(text):
     csv_sub = result_main_sub_risk.to_csv().encode('utf-8')
     st.download_button(label="Download sub risk output",data=csv_sub,file_name='sub_risk.csv',mime='text/csv',)
     
-
+    new_row=[]
     # Merge the data frames on the common column "Main risk categories"
     merged_df = pd.merge(result_main_risk,result_main_sub_risk,  on="Main risk categories")
 
     if(len(result_main_sub_risk)>0 and len(result_main_risk)>0):
         if len(merged_df) == 0:
             # Create a new row with the values you want
-            merged_df.append({
+            new_row.append({
                 'Main risk categories': 'Unmatched',
                 'Keywords_x': 'Unmatched',
                 'Matched Tokens_x': 'Unmatched',
@@ -136,13 +136,13 @@ def mainsubrisk(text):
                 'Matched Tokens_y': 'Unmatched'
                 })
 
-            # Append the new row to the DataFrame
-            #merged_df = merged_df.append(new_row, ignore_index=True)
+            merged_df=pd.DataFrame(new_row,ignore_index=True )
+            
             
     if(len(result_main_sub_risk)>0 or len(result_main_risk)>0):
         if len(merged_df) == 0:
             # Create a new row with the values you want
-            merged_df.append({
+            new_row.append({
                     'Main risk categories': 'Unmatched',
                     'Keywords_x': 'Unmatched',
                     'Matched Tokens_x': 'Unmatched',
@@ -152,7 +152,7 @@ def mainsubrisk(text):
             })
 
             # Append the new row to the DataFrame
-            #merged_df = merged_df.append(new_row, ignore_index=True)
+            merged_df=pd.DataFrame(new_row,ignore_index=True)
     
     st.header("Merged")
     st.dataframe(merged_df)
