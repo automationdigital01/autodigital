@@ -6,10 +6,8 @@ from nltk.util import ngrams
 from nltk.stem import WordNetLemmatizer
 import string
 import streamlit as st
+from fuzzywuzzy import fuzz
 
-
-
-#text = """inputnews"""
 
 def remove_stopwords(text):
     tokens = word_tokenize(text)
@@ -25,7 +23,6 @@ def get_ngrams(tokens, n):
 def lemmatize_tokens(tokens):
     lemmatizer = WordNetLemmatizer()
     return [lemmatizer.lemmatize(token.lower(), pos='n') for token in tokens]
-
 
 def ngramprocessing(text,df):
     # Tokenize, remove stopwords, and specified characters
@@ -57,75 +54,117 @@ def ngramprocessing(text,df):
     
     return matching_keywords
 
+def load_keywords_from_excel(file_path):
+    df = pd.read_excel(file_path)
+    keywords = df.set_index('Keywords').to_dict()['Threat actor']
+    return keywords
+
+def find_threat_actor(input_string, keywords):
+    max_ratio = 0
+    threat_actor = None
+
+    for keyword, actor in keywords.items():
+        ratio = fuzz.partial_ratio(input_string.lower(), keyword.lower())
+        if ratio > max_ratio:
+            max_ratio = ratio
+            threat_actor = actor
+    return threat_actor
+
+def GetThreatActor(text):
+    excel_file_path_master = 'data/CatThreatActor.xlsx'
+    # excel_file_path_actor = 'CatThreatActor.xlsx'
+
+    # Load the master category Excel into a DataFrame
+    master_df = pd.read_excel(excel_file_path_master)
+
+    # Extract keywords from the master DataFrame
+    keywords = master_df.set_index('Keywords').to_dict()['Threat actor']
+
+    # Identify the threat actor based on input text and keywords
+    threat_actor = find_threat_actor(text, keywords)
+
+    if threat_actor:
+        #print(f"Threat Actor: {threat_actor}")
+      # Create DataFrame with matched result
+        result_df = pd.DataFrame({'Threat Actor': [threat_actor], 'Keyword': [next((k for k, v in keywords.items() if v == threat_actor), None)]})
+        #result_df.to_excel('ThreatCategoryResult.xlsx', index=False)
+        #print("Result saved to 'ThreatCategoryResult.xlsx'")
+
+  
+    
+    st.header("Threat Actor")
+    st.dataframe(result_df)
+    csv = result_df.to_csv().encode('utf-8')
+    st.download_button(label="Download Threat Actor output",data=csv,file_name='threat_actor.csv',mime='text/csv',)
+
+def mainsubrisk(text):
+    # Read the Excel sheet into a DataFrame
+    dfMainRisk = pd.read_excel('data/CatMainRisk.xlsx')
+
+    # Read the Excel sheet into a DataFrame
+    dfSubRisk = pd.read_excel('data/CatSubRisk.xlsx')
+        
+    main_matching_keywords =ngramprocessing(text, dfMainRisk)
+    #print(main_matching_keywords)
+    sub_matching_keywords =ngramprocessing(text, dfSubRisk)
+        
+    result_main_risk = main_matching_keywords[['Main risk categories', 'Keywords', 'Matched Tokens']].head(3)
+    st.header("Main Risk")
+    st.dataframe(result_main_risk)
+    csv_main = result_main_risk.to_csv().encode('utf-8')
+    st.download_button(label="Download main risk output",data=csv_main,file_name='main_risk.csv',mime='text/csv',)
+
+    result_main_sub_risk = sub_matching_keywords[['Main risk categories', ' Sub-Risk categories', 'Keywords', 'Matched Tokens']].head(3)
+    st.header("Main Sub Risk")
+    st.dataframe(result_main_sub_risk)
+    csv_sub = result_main_sub_risk.to_csv().encode('utf-8')
+    st.download_button(label="Download sub risk output",data=csv_sub,file_name='sub_risk.csv',mime='text/csv',)
+    
+
+    # Merge the data frames on the common column "Main risk categories"
+    merged_df = pd.merge(result_main_risk,result_main_sub_risk,  on="Main risk categories")
+
+    if(len(result_main_sub_risk)>0 and len(result_main_risk)>0):
+        if len(merged_df) == 0:
+            # Create a new row with the values you want
+            new_row = {
+                'Main risk categories': 'Unmatched',
+                'Sub-Risk categories': 'Unmatched',
+                }
+
+            # Append the new row to the DataFrame
+            merged_df = merged_df.append(new_row, ignore_index=True)
+            
+    if(len(result_main_sub_risk)>0 or len(result_main_risk)>0):
+        if len(merged_df) == 0:
+            # Create a new row with the values you want
+            new_row = {
+                'Main risk categories': 'KeywordIssue',
+                'Sub-Risk categories': 'KeywordIssue',
+                }
+
+            # Append the new row to the DataFrame
+            merged_df = merged_df.append(new_row, ignore_index=True)
+    
+    st.header("Merged")
+    st.dataframe(merged_df)
+    csv_merged = merged_df.to_csv().encode('utf-8')
+    st.download_button(label="Download merged output",data=csv_merged,file_name='merged.csv',mime='text/csv',)
+
+       
 
 def main():
     st.title("Security App")
     text = st.text_area('enter text',)
     if st.button("Submit"):
-        # Read the Excel sheet into a DataFrame
-        dfMainRisk = pd.read_excel('data/CatMainRisk.xlsx')
-
-        # Read the Excel sheet into a DataFrame
-        dfSubRisk = pd.read_excel('data/CatSubRisk.xlsx')
+        mainsubrisk(text)
+        GetThreatActor(text)
         
-        main_matching_keywords =ngramprocessing(text, dfMainRisk)
-        print(main_matching_keywords)
-        sub_matching_keywords =ngramprocessing(text, dfSubRisk)
-
-
-
-        result_main_risk = main_matching_keywords[['Main risk categories', 'Keywords', 'Matched Tokens']].head(3)
-        st.header("Main Risk")
-        st.dataframe(result_main_risk)
-        csv_main = result_main_risk.to_csv().encode('utf-8')
-        st.download_button(label="Download main risk output",data=csv_main,file_name='main_risk.csv',mime='text/csv',)
-
         
-        result_main_sub_risk = sub_matching_keywords[['Main risk categories', ' Sub-Risk categories', 'Keywords', 'Matched Tokens']].head(3)
-        st.header("Main Sub Risk")
-        st.dataframe(result_main_sub_risk)
-        csv_sub = result_main_sub_risk.to_csv().encode('utf-8')
-        st.download_button(label="Download sub risk output",data=csv_sub,file_name='sub_risk.csv',mime='text/csv',)
-        #if result_main_risk.empty:
-        # Update result_main_risk with data from result_main_sub_risk
-        # result_main_risk['Main risk categories']= result_main_sub_risk[['Main risk categories']].copy()
 
-
-        # Merge the data frames on the common column "Main risk categories"
-        merged_df = pd.merge(result_main_risk,result_main_sub_risk,  on="Main risk categories")
-
-        if(len(result_main_sub_risk)>0 and len(result_main_risk)>0):
-            if len(merged_df) == 0:
-            # Create a new row with the values you want
-                new_row = {
-                    'Main risk categories': 'Unmatched',
-                    'Sub-Risk categories': 'Unmatched',
-                    }
-
-                # Append the new row to the DataFrame
-                merged_df = merged_df.append(new_row, ignore_index=True)
-            
-        if(len(result_main_sub_risk)>0 or len(result_main_risk)>0):
-            if len(merged_df) == 0:
-            # Create a new row with the values you want
-                new_row = {
-                    'Main risk categories': 'KeywordIssue',
-                    'Sub-Risk categories': 'KeywordIssue',
-                    }
-
-                # Append the new row to the DataFrame
-                merged_df = merged_df.append(new_row, ignore_index=True)
-
-        st.header("Merged")
-        st.dataframe(merged_df)
-        csv_merged = merged_df.to_csv().encode('utf-8')
-        st.download_button(label="Download merged output",data=csv_merged,file_name='merged.csv',mime='text/csv',)
-
-
+      
 if __name__ == "__main__":
     nltk.download('punkt')       # Download the punkt tokenizer models (if not already downloaded)
     nltk.download('stopwords')   # Download the stopwords (if not already downloaded)
     nltk.download('wordnet')
-    main()  
-
-#merged_df.to_excel('MainSubCatMatchto_excel.xlsx', index=False)
+    main()
