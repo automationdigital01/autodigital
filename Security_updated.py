@@ -129,7 +129,7 @@ def mainsubrisk(text):
             # Create a new row with the values you want
             new_row = {
                 'Main risk categories': 'Unmatched',
-                'Sub-Risk categories': 'Unmatched',
+                ' Sub-Risk categories': 'Unmatched',
                 }
 
             # Append the new row to the DataFrame
@@ -140,7 +140,7 @@ def mainsubrisk(text):
             # Create a new row with the values you want
             new_row = {
                 'Main risk categories': 'KeywordIssue',
-                'Sub-Risk categories': 'KeywordIssue',
+                ' Sub-Risk categories': 'KeywordIssue',
                 }
 
             # Append the new row to the DataFrame
