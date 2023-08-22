@@ -133,7 +133,7 @@ def mainsubrisk(text):
                 }
 
             # Append the new row to the DataFrame
-            merged_df = merged_df.concat(new_row, ignore_index=True)
+            merged_df = merged_df.append(new_row, ignore_index=True)
             
     if(len(result_main_sub_risk)>0 or len(result_main_risk)>0):
         if len(merged_df) == 0:
@@ -144,7 +144,7 @@ def mainsubrisk(text):
                 }
 
             # Append the new row to the DataFrame
-            merged_df = merged_df.concat(new_row, ignore_index=True)
+            merged_df = merged_df.append(new_row, ignore_index=True)
     
     st.header("Merged")
     st.dataframe(merged_df)
