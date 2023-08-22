@@ -7,8 +7,6 @@ from nltk.stem import WordNetLemmatizer
 import string
 import streamlit as st
 
-nltk.download('punkt')       # Download the punkt tokenizer models (if not already downloaded)
-nltk.download('stopwords')   # Download the stopwords (if not already downloaded)
 
 #text = text_string
 def remove_stopwords(text):
