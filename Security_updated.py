@@ -143,12 +143,12 @@ def mainsubrisk(text):
         if len(merged_df) == 0:
             # Create a new row with the values you want
             new_row.append({
-                    'Main risk categories': 'Unmatched',
-                    'Keywords_x': 'Unmatched',
-                    'Matched Tokens_x': 'Unmatched',
-                    ' Sub-Risk categories': 'Unmatched',
-                    'Keywords_y': 'Unmatched',
-                    'Matched Tokens_y': 'Unmatched'
+                    'Main risk categories': 'Keyword missing',
+                    'Keywords_x': 'Keyword missing',
+                    'Matched Tokens_x': 'Keyword missing',
+                    ' Sub-Risk categories': 'Keyword missing',
+                    'Keywords_y': 'Keyword missing',
+                    'Matched Tokens_y': 'Keyword missing'
             })
 
             # Append the new row to the DataFrame
