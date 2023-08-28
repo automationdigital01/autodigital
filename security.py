@@ -137,20 +137,12 @@ def mainsubrisk(text):
 def main():
     st.title("Security App")
     text = st.text_area('enter text',)
-    main_subrisk=st.checkbox("Main/Sub Risk")
-    threatactor=st.checkbox("Threat Actor")
+    
     if st.button("Submit"):
-        if main_subrisk and threatactor:
-             mainsubrisk(text)
-             threat_actor(text)
+        mainsubrisk(text)
+        threat_actor(text)
         
-        elif threatactor:
-             threat_actor(text)
-        
-        elif main_subrisk:
-             mainsubrisk(text)
-        else:
-             st.write("Please select one option")     
+         
 
 
     
