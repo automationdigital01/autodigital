@@ -9,4 +9,4 @@ geotext
 nltk
 fuzzywuzzy
 word2number
-en_core_web_sm
+
