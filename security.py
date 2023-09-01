@@ -330,7 +330,7 @@ def main():
     st.title("Security App")
     text = st.text_area('enter text',)
     if text:
-        model_url = "https://drive.google.com/drive/folders/10qO1V7SxIPZ6yHm9QU6APM9ph79VWHuc?usp=drive_link"
+        model_url = "en_core_web_sm"
         #model_file = "en_core_web_sm1.zip"
         #gdown.download(model_url, model_file, quiet=False)
         #with zipfile.ZipFile(model_file, "r") as zip_ref:
