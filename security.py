@@ -12,9 +12,9 @@ from dateutil import parser
 from nltk.tokenize import sent_tokenize
 import spacy
 from word2number import w2n
-import en_core_web_sm
+
 # Load spaCy's English model
-nlp = en_core_web_sm.load()
+nlp = spacy.load("en_core_web_sm")
 
 def remove_specific_dates(text):
     pattern = r'\w+,\s\w+\s\d{1,2},\s\d{4}\s\d{1,2}:\d{2}:\d{2}\s(?:AM|PM)'
