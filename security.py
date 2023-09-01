@@ -341,6 +341,6 @@ if __name__ == "__main__":
     nltk.download('punkt')       # Download the punkt tokenizer models (if not already downloaded)
     nltk.download('stopwords')   # Download the stopwords (if not already downloaded)
     nltk.download('wordnet')
-    spacy.download("en_core_web_sm")
+    download('en_core_web_sm')
     
     main()
