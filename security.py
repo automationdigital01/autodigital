@@ -12,9 +12,8 @@ from dateutil import parser
 from nltk.tokenize import sent_tokenize
 import spacy
 from word2number import w2n
-from spacy.cli import download
-# Load spaCy's English model
-nlp = spacy.load("en_core_web_sm")
+import zipfile
+
 
 def remove_specific_dates(text):
     pattern = r'\w+,\s\w+\s\d{1,2},\s\d{4}\s\d{1,2}:\d{2}:\d{2}\s(?:AM|PM)'
@@ -329,6 +328,13 @@ def fatality(text):
 def main():
     st.title("Security App")
     text = st.text_area('enter text',)
+    if text:
+        model_file = "en_core_web_sm.zip"
+        with zipfile.ZipFile(model_file, "r") as zip_ref:
+            zip_ref.extractall("en_core_web_sm")
+
+        model_path = "./en_core_web_sm"
+        nlp = spacy.load(model_path)
     
     if st.button("Submit"):
         mainsubrisk(text)
@@ -340,6 +346,6 @@ if __name__ == "__main__":
     nltk.download('punkt')       # Download the punkt tokenizer models (if not already downloaded)
     nltk.download('stopwords')   # Download the stopwords (if not already downloaded)
     nltk.download('wordnet')
-    #download('en_core_web_sm')
+    spacy.download("en_core_web_sm")
     
     main()
