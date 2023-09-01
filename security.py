@@ -330,14 +330,14 @@ def main():
     st.title("Security App")
     text = st.text_area('enter text',)
     if text:
-        model_url = "https://drive.google.com/file/d/1OLI8W4wz91mNRJt_YfmiDdtP5rPoYEi9/view?usp=drive_link"
-        model_file = "en_core_web_sm (2).zip"
+        model_url = "https://drive.google.com/file/d/1XlzyTYSFTD_9Vsh-QhuM1rClHk8B_h_S/view?usp=drive_link"
+        model_file = "en_core_web_sm1.zip"
         gdown.download(model_url, model_file, quiet=False)
         with zipfile.ZipFile(model_file, "r") as zip_ref:
             zip_ref.extractall("en_core_web_sm")
 
-        model_path = "./en_core_web_sm"
-        nlp = spacy.load(model_path)
+        #model_path = "./en_core_web_sm"
+        nlp = spacy.load("en_core_web_sm")
     
     if st.button("Submit"):
         mainsubrisk(text)
