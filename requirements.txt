@@ -8,3 +8,4 @@ sumy
 geotext
 nltk
 fuzzywuzzy
+word2number
