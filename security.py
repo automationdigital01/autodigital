@@ -13,6 +13,7 @@ from nltk.tokenize import sent_tokenize
 import spacy
 from word2number import w2n
 import zipfile
+import gdown
 
 
 def remove_specific_dates(text):
@@ -329,7 +330,9 @@ def main():
     st.title("Security App")
     text = st.text_area('enter text',)
     if text:
+        model_url = "https://drive.google.com/file/d/1OLI8W4wz91mNRJt_YfmiDdtP5rPoYEi9/view?usp=drive_link"
         model_file = "en_core_web_sm (2).zip"
+        gdown.download(model_url, model_file, quiet=False)
         with zipfile.ZipFile(model_file, "r") as zip_ref:
             zip_ref.extractall("en_core_web_sm")
 
