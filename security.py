@@ -329,7 +329,7 @@ def main():
     st.title("Security App")
     text = st.text_area('enter text',)
     if text:
-        model_file = "en_core_web_sm.zip"
+        model_file = "en_core_web_sm (2).zip"
         with zipfile.ZipFile(model_file, "r") as zip_ref:
             zip_ref.extractall("en_core_web_sm")
 
