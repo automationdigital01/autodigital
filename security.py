@@ -336,8 +336,8 @@ def main():
         #with zipfile.ZipFile(model_file, "r") as zip_ref:
          #   zip_ref.extractall("en_core_web_sm")
 
-        #model_path = "./en_core_web_sm-3.5.0"
-        nlp = spacy.load(model_url)
+        model_path = "./en_core_web_sm-3.5.0"
+        nlp = spacy.load(model_path)
     
     if st.button("Submit"):
         mainsubrisk(text)
