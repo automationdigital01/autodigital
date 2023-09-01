@@ -13,7 +13,6 @@ from nltk.tokenize import sent_tokenize
 import spacy
 from word2number import w2n
 from spacy.cli import download
-download('en_core_web_sm')
 # Load spaCy's English model
 nlp = spacy.load("en_core_web_sm")
 
@@ -341,6 +340,6 @@ if __name__ == "__main__":
     nltk.download('punkt')       # Download the punkt tokenizer models (if not already downloaded)
     nltk.download('stopwords')   # Download the stopwords (if not already downloaded)
     nltk.download('wordnet')
-    download('en_core_web_sm')
+    #download('en_core_web_sm')
     
     main()
